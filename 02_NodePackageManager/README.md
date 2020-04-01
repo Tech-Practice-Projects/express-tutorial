@@ -1,15 +1,16 @@
-#Quick Commands and Tips
+Quick Commands and Tips
 1. "npm list" list all node-modules and their version.
 2. "npm list --depth=0" list version of dependencies mention in just your package.json file.
 3. "npm list <package_name>" list version of the given package_name.
 
 Notes:
-1. The lecture uses npm version 5.5.1 and for the sake of similarity the same version is installed for this project.
+- npmjs.com good place to look for interesting packages.
+- The lecture uses npm version 5.5.1 and for the sake of similarity the same version is installed for this project.
 My npm version was higher so I used "npm i npm@5.5.1" within the package and I saw that in package.json 
 a dependency for npm was created with version 5.5.1. But on checking npm -v it gives the version of the higher npm
 version installed glabally. Using "npm i -g npm@5.5.1" will globaly update my npm version which I don't want
 and so I'm leaving it at this hoping that this would be enough.
-2. Any module you install in your package will be stored in node_modules folder. So if
+- Any module you install in your package will be stored in node_modules folder. So if
 you install "mongoose" module it will be stored under node_modules folder of your package.
 Now if "mongoose" module itself depends on other module say "async" module this will also 
 be automatically installed to your package and you will find it in node_modules folder.
@@ -28,9 +29,9 @@ node_modules
     mongoose
         async version 3
 
-3. In real world application node_modules can grow to few 100 MB. Hence these are not
+- In real world application node_modules can grow to few 100 MB. Hence these are not
 checked into the source repositories like git. "npm i" is enough to install all required packages.
-4. Semantic versioning also called SemVer. In package.json you will see that packages are versioned 
+- Semantic versioning also called SemVer. In package.json you will see that packages are versioned 
 in this format ^major-version.minor-version.patch-version, like ^5.5.1. patch-version is for any bug fixes,
 every release will increment the patch-version number like ^5.5.2. minor-version adds functionality 
 that does not break any existing apis and hence will look like ^5.6.0 path version 0 becuase it is a 
@@ -38,9 +39,9 @@ new minor version with no bugs reported yet. If a new version is released that c
 the different application that depends on this module then major-version is increased. ^6.0.0.
 The ^ function tells npm that we are interested in any version of said module as long as the major-version
 matches. So, if there is a newer minor or patch version available it will be updated in the package.json.
-5. Another character used to indicate versioning is ~(tilde), if you see a version as ~1.8.0 means 
+- Another character used to indicate versioning is ~(tilde), if you see a version as ~1.8.0 means 
 that the package can be updates as long as the major version is 1 and minor version is 8.
-6. Intead of using ^ we can also specify the version as 5.x, and for ~ we can use replace with 1.8.x. 
-7. If you are worried that any updates to the module might have bugs that will break your app and you 
+- Intead of using ^ we can also specify the version as 5.x, and for ~ we can use replace with 1.8.x. 
+- If you are worried that any updates to the module might have bugs that will break your app and you 
 want your users to run your app on exact version of dependies that it was built on then just leave the
 versions as is without ^ or ~ character. Like, "5.5.1".
