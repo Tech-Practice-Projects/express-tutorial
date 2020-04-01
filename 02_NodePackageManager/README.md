@@ -1,4 +1,4 @@
-Quick Commands and Tips
+#Quick Commands and Tips
 1. "npm list" list all node-modules and their version.
 2. "npm list --depth=0" list version of dependencies mention in just your package.json file.
 3. "npm list <package_name>" list version of the given package_name.
