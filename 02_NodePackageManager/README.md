@@ -1,3 +1,5 @@
+# Need to work on 
+- The lecture uses npm version 5.5.1. My npm version was higher so I used `npm i npm@5.5.1` within the package and I saw that in package.json a dependency for npm was created with version 5.5.1. But on checking `npm -v` it gives the version of the higher npm version installed glabally. Using `npm i -g npm@5.5.1` will globaly update my npm version which I don't want. But having this version dependency in package.json resulted in security alert in github.
 # Quick Commands and Tips
 1. `npm list` list all node-modules and their version.
 2. `npm list --depth=0` list version of dependencies mention in just your package.json file.
@@ -5,7 +7,6 @@
 
 # Notes:
 - npmjs.com good place to look for interesting packages.
-- The lecture uses npm version 5.5.1 and for the sake of similarity the same version is installed for this project. My npm version was higher so I used `npm i npm@5.5.1` within the package and I saw that in package.json a dependency for npm was created with version 5.5.1. But on checking `npm -v` it gives the version of the higher npm version installed glabally. Using `npm i -g npm@5.5.1` will globaly update my npm version which I don't want and so I'm leaving it at this hoping that this would be enough.
 - Any module you install in your package will be stored in node_modules folder. So if you install "mongoose" module it will be stored under node_modules folder of your package. Now if "mongoose" module itself depends on other module say "async" module this will also be automatically installed to your package and you will find it in node_modules folder. Note that your package.json will just have "mongoose": "^5.9.7" added to it, that is you wont see all the mongoose dependencies added to your package.json even though they are in node_modules folder. Now say that your package depends on "async" module 2 and "mongoose" on "async" module 3. In that case you would have installed "async" version 2 for your package which means your package.json has a dependency entry for "async" module 2 and it is stored in node_modules. Now you install "mongoose" then the "async" module 3 that "mongoose" requires will NOT be stored directly under node_modules along side "async" 2. It will be however stored inside "mongoose" folder whichin turn is in node_modules. Shown below:
 
 1. node_modules
