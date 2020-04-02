@@ -4,23 +4,27 @@
 
 # Quick Commands and Tips
 
-1. `npm list` list all node-modules and their version.
-2. `npm list --depth=0` list version of dependencies mention in just your package.json file.
-3. `npm list <package_name>` list version of the given package.
-4. `npm view <package_name>` you can view the package.json file of that package.
-5. `npm view <package_name> <property>` example 4. `npm view mongoose dependencies` view just the property of a given package.
-6. `npm install <packaage_name>@<version>` install specific version of a package.
-7. `npm outdated` list of outdated version of packages you have in your project.
-8. `npm update` Only for minor and patch update. Updates version according to the _wanted_ column. Read notes for more details.
-9. `npm i -g npm-check-updates` this package will provide you a new command line tool called `npm-check-updates`
-10. `npm-check-updates` list all outdated packages and it's absolutely new and latest version.
-11. `npm-check-updates -u` or `ncu -u` to upgrade outdated packages with major version changes. Just adds dependency to `package.json` in order to install run `npm i`.
+1. `npm i -g npm@5.5.1` installs npm globally to version 5.5.1 <DONT DO IT. Was not able to revert>
+2. `npm install -g npm@latest` installs npm glabaly to latest npm version
+3. `npm list` list all node-modules and their version.
+4. `npm list --depth=0` list version of dependencies mention in just your package.json file.
+5. `npm list <package_name>` list version of the given package.
+6. `npm view <package_name>` you can view the package.json file of that package.
+7. `npm view <package_name> <property>` example 4. `npm view mongoose dependencies` view just the property of a given package.
+8. `npm install <package_name>@<version>` install specific version of a package.
+9. `npm outdated` list of outdated version of packages you have in your project.
+10. `npm update` Only for minor and patch update. Updates version according to the _wanted_ column. Read notes for more details.
+11. `npm i -g npm-check-updates` this package will provide you a new command line tool called `npm-check-updates`
+12. `npm-check-updates` list all outdated packages and it's absolutely new and latest version.
+13. `npm-check-updates -u` or `ncu -u` to upgrade outdated packages with major version changes. Just adds dependency to `package.json` in order to install run `npm i`.
+14. `npm un <package_name>` Uninstalls the given package.
 
 # Notes:
 
 ## NPM
 
 - npmjs.com good place to look for interesting packages.
+- npm itself is a package that is available globaly and is known as global package. Hence it's installation code has `-g` in it's command. Another example is Angular cli.
 - Any module you install in your package will be stored in node_modules folder. So if you install `mongoose` module it will be stored under node_modules folder of your package. Now if `mongoose` module itself depends on other module say `async` module this will also be automatically installed to your package and you will find it in node_modules folder. Note that your package.json will just have `mongoose: "^5.9.7"` added to it, that is you wont see all the mongoose dependencies added to your package.json even though they are in node_modules folder. Now say that your package depends on `async` module 2 and "mongoose" on `async` module 3. In that case you would have installed `async` version 2 for your package which means your package.json has a dependency entry for `async` module 2 and it is stored in node_modules. Now you install `mongoose` then the `async` module 3 that `mongoose` requires will NOT be stored directly under `node_modules` along side `async` 2. It will be however stored inside `mongoose` folder whichin turn is in `node_modules`. Shown below:
 
 1. node_modules
@@ -51,3 +55,5 @@
     "jshint": "^2.11.0"
   }
 ```
+
+- All dependencies irrespective of dev or otherwise are stored under node_modules folder.
