@@ -46,7 +46,7 @@
 - There could be many packages that we use just for development like packages for running unit tests, for static analysis of code, for bundeling out javascript code and so on. These dependencies should not go to prod environment.
 - jshint is a static analysis tool for javascript code. Hence this needs to be installed as `npm i jshint --save-dev` in order to save this under `devDependencies` as follows.
 
-```
+```json
 "devDependencies": {
     "jshint": "^2.11.0"
   }
