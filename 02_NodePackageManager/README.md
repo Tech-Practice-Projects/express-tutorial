@@ -1,10 +1,6 @@
-# Need to work on
+# Quick Commands
 
-- The lecture uses npm version 5.5.1. My npm version was higher so I used `npm i npm@5.5.1` within the package and I saw that in package.json a dependency for npm was created with version 5.5.1. But on checking `npm -v` it gives the version of the higher npm version installed glabally. Using `npm i -g npm@5.5.1` will globaly update my npm version which I don't want. But having this version dependency in package.json resulted in security alert in github.
-
-# Quick Commands and Tips
-
-1. `npm i -g npm@5.5.1` installs npm globally to version 5.5.1 **DONT DO IT. Was not able to revert>**
+1. `npm i -g npm@5.5.1` installs npm globally to version 5.5.1. Think about what you are doing before you try this.
 2. `npm install -g npm@latest` installs npm glabaly to latest npm version
 3. `npm list` list all node-modules and their version.
 4. `npm list --depth=0` list version of dependencies mention in just your package.json file.
@@ -18,13 +14,30 @@
 12. `npm-check-updates` list all outdated packages and it's absolutely new and latest version.
 13. `npm-check-updates -u` or `ncu -u` to upgrade outdated packages with major version changes. Just adds dependency to `package.json` in order to install run `npm i`.
 14. `npm un <package_name>` Uninstalls the given package.
+15. `npm -g outdated` list of globally installed packages that are outdated.
+16. `npm login` to login to npm registry
+17. `npm publish` to publish a package to registry
+18. `npm version <major/minor/patch>` to update version use either major, minor or patch option.
+
+# Tips
+
+1. Installing an older version of npm could cause some problems. In case you need to revert back to the latest version you might use the `npm install -g npm@latest`. Checking `npm -v` might still show the older version which might make you want to pull your hair out. Don't. Just use the cmd `where.exe npm` in windows cmd prompt. You might see `npm.exe` in multiple folders like so
+
+```
+C:\Program Files\nodejs\npm
+C:\Program Files\nodejs\npm.cmd
+C:\Users\upadh\AppData\Roaming\npm\npm
+C:\Users\upadh\AppData\Roaming\npm\npm.cmd
+```
+
+Simply delete the npm folder under Roaming folder. (Don't delete nodejs). Now try npm install -g npm@latest you should get the latest version of npm.
 
 # Notes:
 
 ## NPM
 
 - npmjs.com good place to look for interesting packages.
-- npm itself is a package that is available globaly and is known as global package. Hence it's installation code has `-g` in it's command. Another example is Angular cli.
+- npm itself is a package that is available globaly and is known as global package. npm can be run from the command line tool from anywhere. It is not specific to a given project. Another example is `ng` Angular cli. These packages hence are installed using the `-g` flags.
 - Any module you install in your package will be stored in node_modules folder. So if you install `mongoose` module it will be stored under node_modules folder of your package. Now if `mongoose` module itself depends on other module say `async` module this will also be automatically installed to your package and you will find it in node_modules folder. Note that your package.json will just have `mongoose: "^5.9.7"` added to it, that is you wont see all the mongoose dependencies added to your package.json even though they are in node_modules folder. Now say that your package depends on `async` module 2 and "mongoose" on `async` module 3. In that case you would have installed `async` version 2 for your package which means your package.json has a dependency entry for `async` module 2 and it is stored in node_modules. Now you install `mongoose` then the `async` module 3 that `mongoose` requires will NOT be stored directly under `node_modules` along side `async` 2. It will be however stored inside `mongoose` folder whichin turn is in `node_modules`. Shown below:
 
 1. node_modules
@@ -57,3 +70,9 @@
 ```
 
 - All dependencies irrespective of dev or otherwise are stored under node_modules folder.
+
+## Publishing and Updating custom node packages. My username is fr-mnky (upadhya.mrinalini@gmail.com)
+
+- First thing first to be able to publish a node package on npm registry you need to register as a user. Use the command `npm adduser`. To login run `npm login`. Fill in the username, password and your e-mail id.
+- once logged in from within the package you want to publish type `npm publish`. This is now available on npm registry and can be used inside other projects. I created a moduled named `fr-mnky-my-math`. I had to make it quite unique for it to publish.
+- remember to upgrade version before updating a published package.
