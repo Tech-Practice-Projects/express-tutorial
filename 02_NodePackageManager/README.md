@@ -4,7 +4,7 @@
 
 # Quick Commands and Tips
 
-1. `npm i -g npm@5.5.1` installs npm globally to version 5.5.1 <DONT DO IT. Was not able to revert>
+1. `npm i -g npm@5.5.1` installs npm globally to version 5.5.1 **DONT DO IT. Was not able to revert>**
 2. `npm install -g npm@latest` installs npm glabaly to latest npm version
 3. `npm list` list all node-modules and their version.
 4. `npm list --depth=0` list version of dependencies mention in just your package.json file.
