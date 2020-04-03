@@ -35,7 +35,6 @@
 ### POSTMAN
 
 - instructions for 03_get-and-post.js
-
-1. open postman and create a POST, in the url provide something like `http://localhost:3000/api/courses`
-2. click on `body` tab and write { name : "New Course" }
-3. click on send, you will get a response something like { "id": 4, "name": "New Course" }
+  - open postman and create a POST, in the url provide something like `http://localhost:3000/api/courses`
+  - click on `body` tab and write { name : "New Course" }
+  - click on send, you will get a response something like { "id": 4, "name": "New Course" }
