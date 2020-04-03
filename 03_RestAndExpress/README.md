@@ -16,8 +16,7 @@
 - Every http request from the client has a **verb** or a method that tells the request's type or intention. **GET** (READ), **POST** (CREATE), **PUT**(UPDATE), **DELETE** (DELETE) are the verbs in REST.
 
 ## EXPRESS
-
-- Framework to build web applications and web servers on top of node.
+Framework to build web applications and web servers on top of node.
 
 ### ENVIRONMENT VARIABLE
 
