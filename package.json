@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.17.1",
     "fr-mnky-my-math": "^1.2.0",
     "mongoose": "^5.9.7",
+    "nodemon": "^2.0.2",
     "underscore": "^1.10.2"
   },
   "devDependencies": {
