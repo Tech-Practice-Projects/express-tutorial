@@ -44,7 +44,7 @@ Framework to build web applications and web servers on top of node.
 - With joi we need to first define a schema. A schema defines the shape of our object, what properties do we have in our object? what is the type of each properties? do we have an e-mail? do we have a string? what is the minimum and maximum number of characters for this string? do we have a number? what range should that be within?
 - We can define a schema using joi like so
 
-```JSON
+```
 const schema = {
   name : Joi.string().min(3).required()
 }
@@ -52,7 +52,7 @@ const schema = {
 
 - Validation using Joi can be done like so `const validate-result = Joi.validate(req.body, schema)` this returns an object in the shape
 
-```JSON
+```
 {
   error : null
   value : { whatever was in req.body }
@@ -83,7 +83,7 @@ if(validate-result.error){
 
 Say a method called **validate** returns the following object, and we are interested in only the error param.
 
-```JSON
+```
 {
   error : { Some error }
   value : { }
