@@ -27,11 +27,19 @@ app.get("/api/courses/", (req, res) => {
 // Get Course with ID
 app.get("/api/courses/:id", (req, res) => {
   const course = courses.find(c => c.id === parseInt(req.params.id)); // find course with id === route param.
-  if (!courses) res.status(400).send("Course Not Found!");
+  //Rest convention dictates that we send 404 Error when a route or page is not found
+  if (!courses) res.status(404).send("Course Not Found!");
   else res.send(course.name);
 });
 
 app.post("/api/courses/", (req, res) => {
+  /* Input Validation, joi module makes input validation easier use that instead of doing this **/
+  if (!req.body.name || req.body.name.length < 4) {
+    res
+      .status(400)
+      .send("No name or invalid name length (must be greater than 4)");
+    return;
+  }
   const course = {
     id: courses.length + 1, // This ID will be assigned automatically by DB when we use one.
     name: req.body.name // refer to README.md in current folder "POSTMAN" section to find out how to send request from client with an object with name param
