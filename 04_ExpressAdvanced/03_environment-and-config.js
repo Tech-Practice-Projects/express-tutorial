@@ -1,31 +1,37 @@
-/* Here we will discuss about some built-in and third part middleware */
 const express = require("express");
 const app = express();
+const config = require("config");
+/* require("debug") returns a function, so we call this function and return an argument.
+This argument is an arbitray namespace that we define for debugging.
+For example we can define different namespace like "app:startup", "app:db" etc.
+Now when we call this function with the namesapce as argument we get a function for writing debugging 
+messages in this namespace.
+Potentially we can have multiple debuggers in one file but general convention is to have one for each file
+or module.
+To use debug mode however you need to set the environment variable 
+---------------- > DEBUG=app:startup to see only logs for app:startup
+or ------------- > DEBUG=app:startup, app:db to see both
+or ------------- > DEBUG=app:* to see all with namespace starting with app:
+*/
+const debug = require("debug")("app:startup");
+const debug_custom = require("debug")("app:mrinalini"); // name space can be anything meaningfull
 const helmet = require("helmet");
 const morgan = require("morgan");
 const Joi = require("joi");
-/* Built-in middleware */
-/* it parses the body of the request and there is a json object it will populate the req.body property*/
 app.use(express.json());
-/* This middleware function parses incoming request like express.json() does but this is for "url encoded" payloads.
-That is a request with body like key=value&key=value.. In postman if you try to post a genre click on body and 
-select the radio button x-www-form-urlencoded and pass the request as key-value pairs. Just having this
-middleware means we can now handle url encoded payloads.*/
-// app.use(express.urlencoded()); this gives a deprecated warning use the below line
-app.use(express.urlencoded({ extended: true })); // with this we can pass arrays and other complex objects using the url encode dormat
-/* Say we have all our static assets like css, images and so on inside a folder called public
- Having the below url we can serve static contents. In our case we have a readme.txt, with this middleware
- we can now access this using url say "http://localhost:3000/readme.txt
- note that we dont have public in the url*/
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-/* Third Party middleware, you will need to use npm i morgan and npm i helmet to install these */
-/* It is considered as best practice to use helmet.
- It helps you secure your applications by setting various http headers*/
-app.use(helmet()); // I keep forgeting to add the braces () for helmet() :(
-/* We use morgan to log http request. It takes in a param for format.
-There are different types of farmat refer the documentation of format for more details. 
-He we have used the simplest format that tis tiny*/
-app.use(morgan("tiny")); // logs something like GET /api/genres/ 200 153 - 2.310 ms on Console
+app.use(helmet());
+/* Configuration to enable morgan only during development */
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  debug("Morgan enabled --");
+}
+
+/* Parameters from config module, they will print different values based on what is set in NODE_ENV*/
+debug(`The name of app is ${config.get("name")}`);
+debug_custom(`The name of mail server is ${config.get("mail.host")}`);
 
 /* ................. 03_06_project copied here ................ */
 
