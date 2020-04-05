@@ -1,39 +1,13 @@
+/* The places where pug is used is commented */
+/* For pug the html template is defined in views->index.pug */
 const express = require("express");
-const app = express();
-const config = require("config");
-/* require("debug") returns a function, so we call this function and return an argument.
-This argument is an arbitray namespace that we define for debugging.
-For example we can define different namespace like "app:startup", "app:db" etc.
-Now when we call this function with the namesapce as argument we get a function for writing debugging 
-messages in this namespace.
-Potentially we can have multiple debuggers in one file but general convention is to have one for each file
-or module.
-To use debug mode however you need to set the environment variable 
----------------- > DEBUG=app:startup to see only logs for app:startup
-or ------------- > DEBUG=app:startup, app:db to see both
-or ------------- > DEBUG=app:* to see all with namespace starting with app:
-*/
-const debug = require("debug")("app:startup");
-const debug_custom = require("debug")("app:mrinalini"); // name space can be anything meaningfull
-const helmet = require("helmet");
-const morgan = require("morgan");
 const Joi = require("joi");
+const app = express();
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
-app.use(helmet());
-/* Configuration to enable morgan only during development */
-if (app.get("env") === "development") {
-  app.use(morgan("tiny"));
-  debug("Morgan enabled --");
-}
-
-/* Parameters from config module, they will print different values based on what is set in NODE_ENV*/
-debug_custom(`The name of app is ${config.get("name")}`);
-debug_custom(`The name of mail server is ${config.get("mail.host")}`);
-
-/* ................. 03_06_project copied here ................ */
+// To use Template Engine
+app.set("view engine", "pug");
+app.set("views", "./views"); // optional
 
 // Resourse in DB
 const genres = [
@@ -60,6 +34,17 @@ const schemas = [
   }
 ];
 
+// Home Page Uses Pug
+
+app.get("/", (req, res) => {
+  /* res.send("hello World!"); is replaced with the below line of code.
+  The first argument is the name of our view in thig case it is index.pug
+  The second argument we pass an object and this object includes all the values for the 
+  parameters we have defined in our template (index.pug)
+  Start the server and open localhost:port link to check out home page, 
+  Also check postman, the response now is a standard html instead of json.*/
+  res.render("index", { title: "My Application", message: "Hello World" });
+});
 // GET ALL GENRES
 
 app.get("/api/genres/", (req, res) => {

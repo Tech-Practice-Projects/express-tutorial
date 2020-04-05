@@ -3,6 +3,48 @@
 1. use `npm i morgan` and `npm i helmet` to install these two third party middlewares
 2. `npm i config` to install configuration package
 3. `npm i debug` installs debug module
+4. `npm i pug` a templating engine
+
+# Quick Reference
+
+1. `const config = require("config")`
+2. `app.use(express.json())`, `app.use(express.urlencoded({extended : true}))`, `app.use(express.static("public"))`, `app.use(helmet())` some of the common middleware
+3. `app.set('view engine', 'pug')` express will internally load this module, no need to use `require`
+4. `app.set('views', './views')` optional setting for template engine in order to override the paths to where your templates are stored. In this case it is stored in the **default** location `./views`. All templates will be inside folder called `views`.
+5. To modularize your code you need to have all the endpoint api like `courses`, `genres` etc in their own js file and stored under a folder called `routes`. Earlier you would have defined express app as follows
+
+```Javascript
+const express = require("express");
+const app = express();
+```
+
+But when you distribute each endpoint to it's own file this will not work. You will now need to create a router and instead of working with app object we now would work with router object. Finally export this router object from the js file so that this router can be used in index.js.
+
+**courses.js**
+
+```Javascript
+const express = require("express");
+const router = express.Router(); // returns router object
+// ------------------
+// note how the route url is just "/:id" instead of "/api/course/:id"
+// This is because in index.js below we have said that for any route starting with `/api/courses`
+// use this course.js router
+router.put("/:id", (req, res) => {
+
+})
+// --------------
+mosule.exports = router;
+```
+
+**index.js**
+
+```Javascript
+const express = require("express");
+const app = express();
+const courses = require("./courses");
+// here we are telling express that for any routes that starts with `/api/courses` use the 'courses' router
+app.use("/api/courses", courses)
+```
 
 # MIDDLEWARE
 
@@ -84,3 +126,24 @@ if(app.get("env") === "development"){
 
 - Javascript dev extensively rely on `console.log()` for debugging but it is extremely in convinient. So install debug module and replace all console.log() with debug. refer 03_environment-and-config.js
 - In tutorial single line command to run nodemon and DEBUG worked but it din work in my syatem. Could be windows problem need to check. `DEBUG=app:* nodemon 03_environment-and-config.js` :disappointed:
+
+# Templating Engines
+
+- All the api's we implemented so far we returned json objects in the response, sometimes however we need to return **html markups** to the client and that is where we use a templating engine.
+- The most popular ones for express are _pug_ / _jade_, _mustache_ and _EJS_
+- When you are building resful services for the backend of the client applications you dont't really need a view engine or a templating engine.
+
+# Structuring Express Application
+
+- For every logical part of our application api end point should have seperate files or seperate modules. Say api to deal with `courses` should be in file `courses.js` and one that deals with say authors should be in `authors.js`.
+- This is generally a good structuring concention `./routes/<all the routing js files like courses.js>` This route folder will have `home.js` as well representing the home page don't add homepage code in index.js.
+- Middlewares should be all put in a folder called **middleware** like **logger.js** and **authenticate.js**
+- The folder 04_ExpressAdvanced itself is not structed. i have structed the `vidly app` with it's genres in a seperate folder named `structured-vidly` refer to it for a structed application.
+
+# Database Integration
+
+- We will learn about mongoose database in detail in a seperate section. When you use node and express there are different options available for database integration and you can learn about all the options [here](https://expressjs.com/en/guide/database-integration.html)
+
+# Authentication
+
+- Authentication is outside the scope of express, because express is a minimal light weight framework and it doesn't have an opinion about authentication. We will read about authentication and autherization later in the course to secure our application.
